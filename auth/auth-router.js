@@ -40,10 +40,21 @@ router.post('/login', (req, res) => {
     });
 });
 
+router.get('/logout', (req, res) => {
+    req.session.destroy((err) => {
+        if (err) {
+            res.send("Your stuck");
+        } else {
+            res.send("logged out");
+        }
+    })
+});
+
 function genToken(user) {
     const payload ={
         subject: user.id,
         username: user.username,
+        roles: ['ADMIN']
     };
     const secret = secrets.jwt_secret;
     const options = {
