@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const secrets = require('../config/secrets');
 const Users = require('../users/users-model.js');
 
 // for endpoints beginning with /api/auth
@@ -44,7 +45,7 @@ function genToken(user) {
         subject: user.id,
         username: user.username,
     };
-    const secret = 'private';
+    const secret = secrets.jwt_secret;
     const options = {
         expiresIn: '30 min'
     };
